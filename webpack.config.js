@@ -15,8 +15,11 @@ const config = {
       loader: 'babel'
     },
     {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract('css!sass')
+      test: /\.less$/,
+      use: [
+        'style-loader', {loader: 'css-loader', options: {importLoaders: 1} }, 'less-loader'
+      ],
+        loader: ExtractTextPlugin.extract('css!less')
     }]
   },
   devServer: {
