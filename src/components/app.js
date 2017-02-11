@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router';
 
 class App extends Component {  
   constructor(props) {
     super(props);
+
+    this.state = { 
+      authenticated: false
+    };
   }
 
   render() {
+    console.log('inside app.js.render, this is:', this)
     return (
         <div className="row" style={{clear: "both"}}>
           <nav className="navbar navbar-inverse navbar-fixed-top" >
@@ -14,7 +20,7 @@ class App extends Component {
                       <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                           <span className="sr-only">Toggle navigation</span>
                       </button>
-                      <a className="navbar-brand" href="/">Percepol.is</a>
+                      <Link className="navbar-brand" href="/">Percepol.is</Link>
                   </div>                       
                   {this.headerItems}
                 </div>
@@ -34,15 +40,15 @@ class App extends Component {
     );
   }
 
-  headerItems(state) {
-    if (!state.auth.authenticated) {
+  get headerItems() {    
+    if (!this.state.authenticated) {
       return (
             <ul className="nav navbar-nav navbar-right"> 
               <li className="nav-item">
-                <a className="nav-link" href="#/signup">Sign Up</a>
+                <Link className="nav-link" to="/register">Sign Up</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#/login">Login</a>
+                <Link className="nav-link" to="/login">Login</Link>
               </li>         
             </ul>     
             )
