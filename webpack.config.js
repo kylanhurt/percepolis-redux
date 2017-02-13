@@ -4,23 +4,21 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = {  
   context: __dirname,
   entry: './src/index.js',
+  devtool: 'inline-source-map',
   output: {
     path: __dirname,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    devtoolLineToLine: true    
   },
   module: {
-    loaders: [{
-      exclude: /node_modules/,
-      test: /\.(js|jsx)$/,
-      loader: 'babel'
-    },
-    {
-      test: /\.less$/,
-      use: [
-        'style-loader', {loader: 'css-loader', options: {importLoaders: 1} }, 'less-loader'
-      ],
-        loader: ExtractTextPlugin.extract('css!less')
-    }]
+    rules: [{
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "less-loader"]
+      },
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader'        
+      }]
   },
   devServer: {
     historyApiFallback: true,
@@ -28,19 +26,21 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({ 'process.env':{ 'NODE_ENV': JSON.stringify('production') } }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    //new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       output: {comments: false },
       mangle: false,
-      sourcemap: false,
+      sourceMap: true,
       minimize: true,
       mangle: { except: ['$super', '$', 'exports', 'require', '$q', '$ocLazyLoad'] }
     }),
-    new ExtractTextPlugin('src/public/stylesheets/app.css', {
+    new ExtractTextPlugin({
+      filename: "src/public/stylesheets/app.css",
+      disable: false,
       allChunks: true
-    })
+    })    
   ]
 };
 

@@ -22,12 +22,13 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.6.0",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "less": "^2.7.2",
     "less-loader": "^2.2.3",
+    "redux-logger": "^2.8.1",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
     "axios": "^0.13.1",
