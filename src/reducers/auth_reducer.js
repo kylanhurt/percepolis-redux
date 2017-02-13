@@ -5,10 +5,12 @@ import { AUTH_USER,
 
 const INITIAL_STATE = { error: '', message: '', content: '', authenticated: false}
 
+//one type of action can trigger multiple reducers, if necessary
+
 export default function (state = INITIAL_STATE, action) {  
   switch(action.type) {
     case AUTH_USER:
-      return { ...state, error: '', message: '', authenticated: true };
+      return { ...state, error: '', message: '', authenticated: true }; //start with destructuring, then overwrite property
     case UNAUTH_USER:
       return { ...state, authenticated: false };
     case AUTH_ERROR:

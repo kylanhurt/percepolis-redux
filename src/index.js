@@ -10,15 +10,15 @@ import reducers from './reducers/index';
 import { AUTH_USER } from './actions/types';
 import cookie from 'react-cookie';
 import css from './style.less'
+import axios from 'axios';
+import promise from 'redux-promise-middleware';
+
 // Import stylesheets like this, if you choose: import './public/stylesheets/base.scss';
 
 const logger = createLogger();
-const createStoreWithMiddleware = applyMiddleware(reduxThunk, logger)(createStore);  
+const createStoreWithMiddleware = applyMiddleware(promise(), reduxThunk, logger)(createStore);  
 const store = createStoreWithMiddleware(reducers);
 
-store.subscribe(() => {
-	console.log('store change (from index.js)', store.getState());
-})
 
 const token = cookie.load('token');
 
@@ -27,6 +27,12 @@ if (token) {
 } else { //remove this clause
 	store.dispatch({type: "UNAUTH_USER", payload: "unauth"}); //payload can be an OBJECT
 }
+
+store.dispatch({
+	type: "FETCH_ENTITIES",
+	payload: axios.get("http://localhost:8088/api/entity")
+})
+
 
 ReactDOM.render(  
   <Provider store={store}>
