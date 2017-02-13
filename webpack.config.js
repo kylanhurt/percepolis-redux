@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const config = {  
   context: __dirname,
   entry: './src/index.js',
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   output: {
     path: __dirname,
     filename: 'bundle.js',
@@ -35,11 +35,6 @@ const config = {
       sourceMap: true,
       minimize: true,
       mangle: { except: ['$super', '$', 'exports', 'require', '$q', '$ocLazyLoad'] }
-    }),
-    new ExtractTextPlugin({
-      filename: "src/public/stylesheets/app.css",
-      disable: false,
-      allChunks: true
     })    
   ]
 };
