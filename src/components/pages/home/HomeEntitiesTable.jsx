@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {fetchEntities} from '../../../actions/entityActions';
+import moment from 'moment';
 
 
 @connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
@@ -16,14 +17,14 @@ export default class EntityTable extends React.Component {
 	}
 
   render() { 
-  	const entities = this.props.entity;
-  	const mappedEntities = entities.map(entity =>           		
+  	const entities = this.props.entity; 	
+  	const mappedEntities = entities.map(entity =>           	
   				<tr >
 	                <td className="home-index-table-body-title"><a>{entity.name}</a></td>
 	                <td className="home-index-table-body-website"><a href="http://">{entity.website}</a></td>                        
 	                <td className="home-index-table-body-location">{entity.location}</td>
 	                <td className="home-index-table-body-year">{entity.yearFounded}</td>
-	                <td className="home-index-table-body-created">{entity.createdAt}</td>
+	                <td className="home-index-table-body-created">{entity.createdAt ? moment(entity.createdAt).fromNow() : ''}</td>
                 </tr>)
   	return( 
   		<div className="row">
