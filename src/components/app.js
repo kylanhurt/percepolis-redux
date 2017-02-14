@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router';
+import {store} from '../index.js';
 
 class App extends Component {  
   constructor(props) {
@@ -11,7 +12,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('inside app.js.render, this is:', this)
     return (
         <div className="row" style={{clear: "both"}}>
           <nav className="navbar navbar-inverse navbar-fixed-top" >
