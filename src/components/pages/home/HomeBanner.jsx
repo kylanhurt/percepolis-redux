@@ -1,63 +1,22 @@
 import React from 'react';
 import {Link} from 'react-router';
 import { connect } from 'react-redux';
+import {fetchEntities} from '../../../actions/entityActions';
 
-@connect((store) => {
+/*@connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
 		entity: store.homeTableEntities
-	}
-})
+	};
+})*/
 
 export default class HomeBanner extends React.Component {
 
 	constructor( props ) {
 		super(props)			
 	}
-	/*
-  _getLoginState() {
-    return {
-      userLoggedIn: LoginStore.isLoggedIn()
-    };
-  }
-
-  componentDidMount() {
-    this.changeListener = this._onChange.bind(this);
-    LoginStore.addChangeListener(this.changeListener);
-  }
-
-  _onInputChange(name, e) {
-    let change = {};
-    change[name] = e.target.value;
-    this.setState(change);
-  }
-
-  componentWillUnmount() {
-    LoginStore.removeChangeListener(this.changeListener);
-  }
-
-  loginUser(e) {
-    e.preventDefault();
-    AuthService.login(this.state.email, this.state.password)
-    	.catch(function(err) {
-    		console.log('There has been an error logging in.');
-    	});
-
-  }
-
-  registerUser(e) {
-	e.preventDefault();
-    AuthService.signup(this.state.email, this.state.password)
-		.catch(function(err) {
-			console.log('There has been an error signing up.');
-		});
-  }
-
-  _onChange() {
-  	let currentLoginState = this._getLoginState();
-  	this.setState(currentLoginState);
-  } */
 
   render() { 
+  	console.log(this.props);
     if (!false) {
     	return(
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
@@ -100,4 +59,48 @@ export default class HomeBanner extends React.Component {
 			)
 		}
 	}
+
+	/*
+  _getLoginState() {
+    return {
+      userLoggedIn: LoginStore.isLoggedIn()
+    };
+  }
+
+  componentDidMount() {
+    this.changeListener = this._onChange.bind(this);
+    LoginStore.addChangeListener(this.changeListener);
+  }
+
+  _onInputChange(name, e) {
+    let change = {};
+    change[name] = e.target.value;
+    this.setState(change);
+  }
+
+  componentWillUnmount() {
+    LoginStore.removeChangeListener(this.changeListener);
+  }
+
+  loginUser(e) {
+    e.preventDefault();
+    AuthService.login(this.state.email, this.state.password)
+    	.catch(function(err) {
+    		console.log('There has been an error logging in.');
+    	});
+
+  }
+
+  registerUser(e) {
+	e.preventDefault();
+    AuthService.signup(this.state.email, this.state.password)
+		.catch(function(err) {
+			console.log('There has been an error signing up.');
+		});
+  }
+
+  _onChange() {
+  	let currentLoginState = this._getLoginState();
+  	this.setState(currentLoginState);
+  } */	
 }	
