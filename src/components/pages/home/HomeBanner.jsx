@@ -16,11 +16,9 @@ export default class HomeBanner extends React.Component {
 	}
 
   render() { 
-  	console.log(this.props);
     if (!false) {
     	return(
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
-				this.props.entity
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
 			        <form>
 			            <p>Please fill out the fields below to create an account:</p>
