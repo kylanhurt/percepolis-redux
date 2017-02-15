@@ -12,7 +12,7 @@ import moment from 'moment';
 
 export default class EntityTable extends React.Component {
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.dispatch(fetchEntities());
 	}
 

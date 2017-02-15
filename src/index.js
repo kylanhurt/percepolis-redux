@@ -17,9 +17,11 @@ import {store} from './store';
 const token = cookie.load('token');
 
 if (token) {  
+	console.log('there IS a token')
   store.dispatch({ type: "AUTH_USER" });
 } else { //remove this clause
-	store.dispatch({type: "UNAUTH_USER", payload: "unauth"}); //payload can be an OBJECT
+	console.log('there is no token')
+	store.dispatch({type: "UNAUTH_USER"}); //payload can be an OBJECT
 }
 
 /*store.dispatch({

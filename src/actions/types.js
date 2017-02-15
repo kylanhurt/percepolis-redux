@@ -1,9 +1,9 @@
-export const AUTH_USER = 'auth_user',  
-             UNAUTH_USER = 'unauth_user',
-             AUTH_ERROR = 'auth_error',
+export const AUTH_USER = 'AUTH_USER',  
+             UNAUTH_USER = 'UNAUTH_USER',
+             AUTH_ERROR = 'AUTH_ERROR',
              FORGOT_PASSWORD_REQUEST = 'forgot_password_request',
              RESET_PASSWORD_REQUEST = 'reset_password_request',
-             PROTECTED_TEST = 'protected_test',
-             FETCH_ENTITIES_PENDING = 'fetch_entities_pending',
-             FETCH_ENTITIES_FULFILLED = 'fetch_entities_fulfilled',
-             FETCH_ENTITIES_REJECTED = 'fetch_entities_rejected';
+             PROTECTED_TEST = 'PROTECTED_TEST',
+             FETCH_ENTITIES_PENDING = 'FETCH_ENTITIES_PENDING',
+             FETCH_ENTITIES_FULFILLED = 'FETCH_ENTITIES_FULFILLED',
+             FETCH_ENTITIES_REJECTED = 'FETCH_ENTITIES_REJECTED';

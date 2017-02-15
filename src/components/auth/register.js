@@ -18,14 +18,6 @@ const renderField = field => (
 function validate(formProps) {  
   const errors = {};
 
-  if (!formProps.firstName) {
-    errors.firstName = 'Please enter a first name';
-  }
-
-  if (!formProps.lastName) {
-    errors.lastName = 'Please enter a last name';
-  }
-
   if (!formProps.email) {
     errors.email = 'Please enter an email';
   }
@@ -58,16 +50,6 @@ class Register extends Component {
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
       {this.renderAlert()}
-      <div className="row">
-        <div className="col-md-6">
-          <label>First Name</label>
-          <Field name="firstName" className="form-control" component={renderField} type="text" />
-        </div>
-        <div className="col-md-6">
-          <label>Last Name</label>
-          <Field name="lastName" className="form-control" component={renderField} type="text" />
-        </div>
-      </div>
         <div className="row">
           <div className="col-md-12">
             <label>Email</label>

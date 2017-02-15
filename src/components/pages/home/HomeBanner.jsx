@@ -2,21 +2,47 @@ import React from 'react';
 import {Link} from 'react-router';
 import { connect } from 'react-redux';
 import {fetchEntities} from '../../../actions/entityActions';
+import { loginUser, registerUser } from '../../../actions';
 
-/*@connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
+@connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
-		entity: store.homeTableEntities
+		auth: store.auth
 	};
-})*/
+})
 
 export default class HomeBanner extends React.Component {
 
 	constructor( props ) {
-		super(props)			
+		super(props);
+		var state = {};	
 	}
 
+	loginUser(e) {
+		e.preventDefault();
+		this.props.dispatch(loginUser({email: this.state.email, password: this.state.password}));
+	}
+
+	registerUser(e) {
+		e.preventDefault();
+		this.props.dispatch(registerUser({email: this.state.email, password: this.state.password}));
+	}
+
+  _onInputChange(name, e) {
+    let change = {};
+    change[name] = e.target.value;
+    this.setState(change);
+  }	
+
+  componentWillMount() {
+
+  }
+
+  componentDidMount() {
+
+  }
+
   render() { 
-    if (!false) {
+    if (!this.props.auth.authenticated) {
     	return(
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
@@ -24,15 +50,15 @@ export default class HomeBanner extends React.Component {
 			            <p>Please fill out the fields below to create an account:</p>
 			            <div className="form-group">
 			                <label htmlFor="login-email">Email:</label>
-			                <input type="email" className="form-control" onChange={this._onInputChange} id="login-email" placeholder="user@example.com"></input>
+			                <input type="email" className="form-control" mame="email" onChange={this._onInputChange.bind(this, 'email')} id="login-email" placeholder="user@example.com"></input>
 			                <span className="help-block"></span>                
 			            </div>
 			            <div className="form-group">
 			                <label htmlFor="login-password">Password:</label>
-			                <input type="password" className="form-control" onChange={this._onInputChange} id="login-password" placeholder="*******"></input>
+			                <input type="password" className="form-control" name="password" onChange={this._onInputChange.bind(this, 'password')} id="login-password" placeholder="*******"></input>
 			            </div>
-			            <button className="btn btn-primary" onClick={this.loginUser}>Login</button>
-			            <button className="btn btn-secondary" onClick={this.registerUser}>Register</button>
+			            <button className="btn btn-primary" onClick={this.loginUser.bind(this)}>Login</button>
+			            <button className="btn btn-secondary" onClick={this.registerUser.bind(this)}>Register</button>
 			            <input type="hidden" name="_token" value="{{_token}}"></input>
 			        </form>
 			    </div>
