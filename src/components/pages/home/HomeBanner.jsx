@@ -3,14 +3,20 @@ import {Link} from 'react-router';
 import { connect } from 'react-redux';
 import {fetchEntities} from '../../../actions/entityActions';
 import { loginUser, registerUser } from '../../../actions';
+import { Field, reduxForm } from 'redux-form';
+import validate from './validate';
+import { asyncValidate } from '../../../actions/homeBannerActions';
 
 @connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
-		auth: store.auth
+		auth: store.auth,
+		form: store.form
 	};
 })
 
-export default class HomeBanner extends React.Component {
+
+
+class HomeBanner extends React.Component {
 
 	constructor( props ) {
 		super(props);
@@ -33,6 +39,10 @@ export default class HomeBanner extends React.Component {
     this.setState(change);
   }	
 
+  validateEmail() {
+  	this.props.dispatch(asyncValidate({ email: this.props.form.userRegister.values.email }))
+  }
+
   componentWillMount() {
 
   }
@@ -41,8 +51,11 @@ export default class HomeBanner extends React.Component {
 
   }
 
+
   render() { 
+	const { asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
     if (!this.props.auth.authenticated) {
+
     	return(
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
@@ -50,15 +63,14 @@ export default class HomeBanner extends React.Component {
 			            <p>Please fill out the fields below to create an account:</p>
 			            <div className="form-group">
 			                <label htmlFor="login-email">Email:</label>
-			                <input type="email" className="form-control" mame="email" onChange={this._onInputChange.bind(this, 'email')} id="login-email" placeholder="user@example.com"></input>
-			                <span className="help-block"></span>                
+			                <Field name="email" onBlur={this.validateEmail.bind(this)} component="input" className="form-control" id="login-email" type="email"  placeholder="user@example.com" />
 			            </div>
 			            <div className="form-group">
 			                <label htmlFor="login-password">Password:</label>
-			                <input type="password" className="form-control" name="password" onChange={this._onInputChange.bind(this, 'password')} id="login-password" placeholder="*******"></input>
+							<Field name="password" component="input" type="password" className="form-control"  id="login-password" placeholder="*******" />			                
 			            </div>
-			            <button className="btn btn-primary" onClick={this.loginUser.bind(this)}>Login</button>
-			            <button className="btn btn-secondary" onClick={this.registerUser.bind(this)}>Register</button>
+			            <button className="btn btn-primary" disabled={this.pristine || this.submitting}>Login</button>
+			            <button className="btn btn-secondary" disabled={this.pristine || this.submitting}>Register</button>
 			            <input type="hidden" name="_token" value="{{_token}}"></input>
 			        </form>
 			    </div>
@@ -83,48 +95,14 @@ export default class HomeBanner extends React.Component {
 			)
 		}
 	}
+}
 
-	/*
-  _getLoginState() {
-    return {
-      userLoggedIn: LoginStore.isLoggedIn()
-    };
-  }
+HomeBanner = reduxForm({
+	form: 'userRegister',
+	fields: ['email', 'password'],
+	asyncValidate,
+	asyncBlurFields: []
+})(HomeBanner);
 
-  componentDidMount() {
-    this.changeListener = this._onChange.bind(this);
-    LoginStore.addChangeListener(this.changeListener);
-  }
 
-  _onInputChange(name, e) {
-    let change = {};
-    change[name] = e.target.value;
-    this.setState(change);
-  }
-
-  componentWillUnmount() {
-    LoginStore.removeChangeListener(this.changeListener);
-  }
-
-  loginUser(e) {
-    e.preventDefault();
-    AuthService.login(this.state.email, this.state.password)
-    	.catch(function(err) {
-    		console.log('There has been an error logging in.');
-    	});
-
-  }
-
-  registerUser(e) {
-	e.preventDefault();
-    AuthService.signup(this.state.email, this.state.password)
-		.catch(function(err) {
-			console.log('There has been an error signing up.');
-		});
-  }
-
-  _onChange() {
-  	let currentLoginState = this._getLoginState();
-  	this.setState(currentLoginState);
-  } */	
-}	
+export default HomeBanner;

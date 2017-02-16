@@ -53,9 +53,13 @@ export function registerUser({ email, password }) {
     axios.post('http://localhost:8088/api/users', { email: email, password: password })
     .then(response => {
       console.log('response is: ', response);
-      cookie.save('token', response.data.token, { path: '/' });
-      dispatch({ type: AUTH_USER });
-      browserHistory.push('/');
+      if(response.success){
+        cookie.save('token', response.data.token, { path: '/' });
+        dispatch({ type: AUTH_USER });
+        browserHistory.push('/');
+      } else {
+        console.log('registerUser API error')
+      }
     })
     .catch((error) => {
       console.log('error is: ', error)
