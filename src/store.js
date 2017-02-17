@@ -8,4 +8,4 @@ import rootReducer from './reducers/index';
 
 const logger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(promise(), reduxThunk, logger)(createStore);  
-export const store = createStoreWithMiddleware(rootReducer);
+export const store = createStoreWithMiddleware(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
