@@ -15,7 +15,6 @@ import { asyncValidate } from '../../../actions/homeBannerActions';
 })
 
 
-
 class HomeBanner extends React.Component {
 
 	constructor( props ) {
@@ -61,8 +60,8 @@ class HomeBanner extends React.Component {
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
 			        <form>
 			            <p>Please fill out the fields below to create an account:</p>
-			            <div className="form-group">
-			                <label htmlFor="login-email">Email:</label>
+			            <div className="form-group" className={this.props.auth.duplicateEmail ? 'has-error' : ''}>
+			                <label htmlFor="login-email">Email:</label> {this.props.auth.duplicateEmail && <span>Email already taken.</span>}
 			                <Field name="email" onBlur={this.validateEmail.bind(this)} component="input" className="form-control" id="login-email" type="email"  placeholder="user@example.com" />
 			            </div>
 			            <div className="form-group">

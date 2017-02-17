@@ -17,7 +17,7 @@ const config = {
       },
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader'        
+        loader: 'babel-loader?retainLines=true'        
       }]
   },
   devServer: {
@@ -26,15 +26,13 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({ 'process.env':{ 'NODE_ENV': JSON.stringify('production') } }),
-    //new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
       output: {comments: false },
       mangle: false,
       sourceMap: true,
-      minimize: true,
-      mangle: { except: ['$super', '$', 'exports', 'require', '$q', '$ocLazyLoad'] }
+      minimize: false
     })    
   ]
 };
