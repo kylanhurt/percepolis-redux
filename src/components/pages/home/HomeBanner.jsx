@@ -38,9 +38,9 @@ class HomeBanner extends React.Component {
     this.setState(change);
   }	
 
-  validateEmail() {
+  /*validateEmail() {
   	this.props.dispatch(asyncValidate({ email: this.props.form.userRegister.values.email }))
-  }
+  }*/
 
   componentWillMount() {
 
@@ -50,26 +50,29 @@ class HomeBanner extends React.Component {
 
   }
 
-
   render() { 
-	const { asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
+	const { error, asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
+
+	const required = value => value ? undefined : 'Required'
+	const maxLength = max => value =>
+	  value && value.length > max ? `Must be ${max} characters or less` : undefined
+	const maxLength25 = maxLength(25)
+	const email = value =>
+	  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
+	  'Invalid email address' : undefined
+
     if (!this.props.auth.authenticated) {
 
     	return(
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
-			        <form>
-			            <p>Please fill out the fields below to create an account:</p>
-			            <div className="form-group" className={this.props.auth.duplicateEmail ? 'has-error' : ''}>
-			                <label htmlFor="login-email">Email:</label> {this.props.auth.duplicateEmail && <span>Email already taken.</span>}
-			                <Field name="email" onBlur={this.validateEmail.bind(this)} component="input" className="form-control" id="login-email" type="email"  placeholder="user@example.com" />
-			            </div>
-			            <div className="form-group">
-			                <label htmlFor="login-password">Password:</label>
-							<Field name="password" component="input" type="password" className="form-control"  id="login-password" placeholder="*******" />			                
-			            </div>
-			            <button className="btn btn-primary" disabled={this.pristine || this.submitting}>Login</button>
-			            <button className="btn btn-secondary" disabled={this.pristine || this.submitting}>Register</button>
+			        <form onSubmit={handleSubmit(loginUser)}>
+			            <p>Please fill out the fields below to create an account:</p>			            
+		                <Field validate={[required, email]} className="form-control" name="email" label="Email" component={renderField}  id="login-email" type="email"  placeholder="user@example.com" />
+						<Field validate={[required, maxLength25]} className="form-control" name="password" label="Password" component={renderField} type="password"  id="login-password" placeholder="*******" />			                
+						{error && <strong>{error}</strong>}
+			            <button type="submit" className="btn btn-primary" disabled={this.pristine || this.submitting}>Login</button>
+			            <button type="button" className="btn btn-secondary" disabled={this.pristine || this.submitting} onClick={this.registerUser.bind(this)}>Register</button>
 			            <input type="hidden" name="_token" value="{{_token}}"></input>
 			        </form>
 			    </div>
@@ -96,11 +99,18 @@ class HomeBanner extends React.Component {
 	}
 }
 
+const renderField = ({ input, type, label,  placeholder, className, meta: { touched, error, warning } }) => (
+  <div className="form-group">
+    <label htmlFor={label}>{label}:</label>
+    <div>
+      <input type={type} placeholder={placeholder} className={className} {...input} />
+      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
+    </div>
+  </div>
+)
+
 HomeBanner = reduxForm({
-	form: 'userRegister',
-	fields: ['email', 'password'],
-	asyncValidate,
-	asyncBlurFields: []
+	form: 'userRegister'
 })(HomeBanner);
 
 

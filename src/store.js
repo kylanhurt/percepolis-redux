@@ -1,9 +1,7 @@
 import {applyMiddleware, createStore} from 'redux';
-
 import createLogger from 'redux-logger';
 import reduxThunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
-
 import rootReducer from './reducers/index';
 
 const logger = createLogger();
