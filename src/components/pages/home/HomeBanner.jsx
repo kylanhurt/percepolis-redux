@@ -6,6 +6,7 @@ import { loginUser, registerUser } from '../../../actions';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 import { asyncValidate } from '../../../actions/homeBannerActions';
+import classNames from 'classnames';
 
 @connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
@@ -100,11 +101,10 @@ class HomeBanner extends React.Component {
 }
 
 const renderField = ({ input, type, label,  placeholder, className, meta: { touched, error, warning } }) => (
-  <div className="form-group">
-    <label htmlFor={label}>{label}:</label>
+  <div className={classNames('form-group', {'has-error': touched && error}, {'has-warning': touched && warning})}>
+    <label htmlFor={label}>{label}:</label> {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span className="text-warning">{warning}</span>))}
     <div>
       <input type={type} placeholder={placeholder} className={className} {...input} />
-      {touched && ((error && <span>{error}</span>) || (warning && <span>{warning}</span>))}
     </div>
   </div>
 )

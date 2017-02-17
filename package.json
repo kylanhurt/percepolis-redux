@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "axios": "^0.13.1",
+    "classnames": "^2.2.5",
     "lodash": "^4.6.1",
     "moment": "^2.17.1",
     "promise-thunk": "^0.1.17",
