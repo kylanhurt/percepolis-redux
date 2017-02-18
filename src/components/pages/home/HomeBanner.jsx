@@ -7,6 +7,7 @@ import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 import { asyncValidate } from '../../../actions/homeBannerActions';
 import classNames from 'classnames';
+import {store} from '../../../store';
 
 @connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
@@ -23,21 +24,15 @@ class HomeBanner extends React.Component {
 		var state = {};	
 	}
 
-	loginUser(e) {
-		e.preventDefault();
-		this.props.dispatch(loginUser({email: this.state.email, password: this.state.password}));
+	loginUser(values) {
+		console.log('values: ', values);		
+		store.dispatch(asyncValidate({email: values.email, password: values.password}));
 	}
 
 	registerUser(e) {
-		e.preventDefault();
-		this.props.dispatch(registerUser({email: this.state.email, password: this.state.password}));
+		console.log('event: ', e);		
+		//this.props.dispatch(registerUser({email: this.state.email, password: this.state.password}));
 	}
-
-  _onInputChange(name, e) {
-    let change = {};
-    change[name] = e.target.value;
-    this.setState(change);
-  }	
 
   /*validateEmail() {
   	this.props.dispatch(asyncValidate({ email: this.props.form.userRegister.values.email }))
@@ -67,7 +62,7 @@ class HomeBanner extends React.Component {
     	return(
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
-			        <form onSubmit={handleSubmit(loginUser)}>
+			        <form onSubmit={handleSubmit(this.loginUser)}>
 			            <p>Please fill out the fields below to create an account:</p>			            
 		                <Field validate={[required, email]} className="form-control" name="email" label="Email" component={renderField}  id="login-email" type="email"  placeholder="user@example.com" />
 						<Field validate={[required, maxLength25]} className="form-control" name="password" label="Password" component={renderField} type="password"  id="login-password" placeholder="*******" />			                
