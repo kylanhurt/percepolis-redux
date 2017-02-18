@@ -80,7 +80,7 @@ class HomeBanner extends React.Component {
 	} else {
 		return(
 				<div id="home-logged-in-content" className="jumbotron">
-				    <h1>Welcome to dataGo<span>, </span>!</h1>
+				    <h1>Welcome to Percepol.is!</h1>
 				    <p>To submit a new entity to our database, please click the button below...</p>
 				    <p><Link className="btn btn-primary btn-large" to="/entity/new">Submit New Entity</Link></p>
 				</div>
