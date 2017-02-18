@@ -3,7 +3,8 @@ import axios from 'axios';
 //create custom onBlur handler instead of redux-form?
 
 export function asyncValidate(data) {
-	console.log('in homeBannerActions.asyncValidate, data is: ', data);
+	console.log('in homeBannerActions.asyncValidate, data is: ');
+	console.log(data);
 	return function(dispatch) {
 
 		axios.get("http://localhost:8088/api/users/" + data.email)

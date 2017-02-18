@@ -24,19 +24,13 @@ class HomeBanner extends React.Component {
 		var state = {};	
 	}
 
-	loginUser(values) {
-		console.log('values: ', values);		
-		store.dispatch(asyncValidate({email: values.email, password: values.password}));
+	loginUser(values) {	
+		store.dispatch(loginUser({email: values.email, password: values.password}));
 	}
 
-	registerUser(e) {
-		console.log('event: ', e);		
-		//this.props.dispatch(registerUser({email: this.state.email, password: this.state.password}));
+	registerUser(e) {	
+		store.dispatch(registerUser({email: this.props.form.userRegister.values.email, password: this.props.form.userRegister.values.password}));
 	}
-
-  /*validateEmail() {
-  	this.props.dispatch(asyncValidate({ email: this.props.form.userRegister.values.email }))
-  }*/
 
   componentWillMount() {
 
@@ -54,7 +48,7 @@ class HomeBanner extends React.Component {
 	  value && value.length > max ? `Must be ${max} characters or less` : undefined
 	const maxLength25 = maxLength(25)
 	const email = value =>
-	  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ?
+	  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i.test(value) ?
 	  'Invalid email address' : undefined
 
     if (!this.props.auth.authenticated) {
