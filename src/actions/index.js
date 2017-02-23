@@ -62,10 +62,10 @@ export function loginUser({ email, password }) {
 
     })
   }
-      /*
+      
 
 
-      axios.post(`${API_URL}/authenticate`, { email, password })
+      /*axios.post(`${API_URL}/authenticate`, { email, password })
       .then(response => {
         console.log('status is: ', status, ' response is: ', response);
         if(response.data.token){
@@ -83,8 +83,9 @@ export function loginUser({ email, password }) {
       })
       .catch((error) => {
         console.log('error is: ', error, 'status is: ', status)
-        resolve(new SubmissionError(error));
-      })*/
+        throw new SubmissionError(error);
+      })
+    }*/
 
 
 export function registerUser({ email, password }) {  
@@ -93,7 +94,7 @@ export function registerUser({ email, password }) {
     .then(response => {
       if(response.data.success){
         cookie.save('token', response.data.token, { path: '/' });
-        dispatch({ type: AUTH_USER });
+        //dispatch({ type: AUTH_USER });
         browserHistory.push('/');
       } else {
         if(response.code === 11000){ //duplicate email
