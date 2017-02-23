@@ -1,8 +1,4 @@
-import { AUTH_USER,  
-         UNAUTH_USER,
-         AUTH_ERROR,
-         PROTECTED_TEST,
-         VALIDATE_EMAIL_FULFILLED } from '../actions/types';
+import { AUTH_USER, UNAUTH_USER, AUTH_ERROR, PROTECTED_TEST, VALIDATE_EMAIL_FULFILLED } from '../actions/types';
 
 const INITIAL_STATE = { error: '', message: '', content: '', authenticated: false, duplicateEmail: false}
 

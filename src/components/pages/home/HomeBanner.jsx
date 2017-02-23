@@ -61,8 +61,8 @@ class HomeBanner extends React.Component {
 		                <Field validate={[required, email]} className="form-control" name="email" label="Email" component={renderField}  id="login-email" type="email"  placeholder="user@example.com" />
 						<Field validate={[required, maxLength25]} className="form-control" name="password" label="Password" component={renderField} type="password"  id="login-password" placeholder="*******" />			                
 						{error && <strong>{error}</strong>}
-			            <button type="submit" className="btn btn-primary" disabled={this.pristine || this.submitting}>Login</button>
-			            <button type="button" className="btn btn-secondary" disabled={this.pristine || this.submitting} onClick={this.registerUser.bind(this)}>Register</button>
+			            <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Login</button>
+			            <button type="button" className="btn btn-secondary" disabled={pristine || submitting} onClick={this.registerUser.bind(this)}>Register</button>
 			            <input type="hidden" name="_token" value="{{_token}}"></input>
 			        </form>
 			    </div>
