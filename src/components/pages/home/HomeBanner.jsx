@@ -56,7 +56,7 @@ class HomeBanner extends React.Component {
     	return(
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
-			        <form onSubmit={handleSubmit(this.loginUser)}>
+			        <form onSubmit={handleSubmit(loginUser)}>
 			            <p>Please fill out the fields below to create an account:</p>			            
 		                <Field validate={[required, email]} className="form-control" name="email" label="Email" component={renderField}  id="login-email" type="email"  placeholder="user@example.com" />
 						<Field validate={[required, maxLength25]} className="form-control" name="password" label="Password" component={renderField} type="password"  id="login-password" placeholder="*******" />			                
