@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
 import { connect } from 'react-redux';
-import {fetchEntities} from '../../../actions/entityActions';
 import * as actions from '../../../actions';
 import { loginUser, registerUser } from '../../../actions';
 import { Field, reduxForm } from 'redux-form';
@@ -22,7 +21,6 @@ class HomeBanner extends React.Component {
 
 	constructor( props ) {
 		super(props);
-		var state = {};	
 	}
 
   componentWillMount() {
@@ -45,7 +43,6 @@ class HomeBanner extends React.Component {
 	  'Invalid email address' : undefined
 
     if (!this.props.auth.authenticated) {
-	console.log('another render, this is:', this);
     	return(
 
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
