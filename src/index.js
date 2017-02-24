@@ -24,11 +24,6 @@ if (token) {
 	store.dispatch({type: "UNAUTH_USER"}); //payload can be an OBJECT
 }
 
-/*store.dispatch({
-	type: "FETCH_ENTITIES",
-	payload: axios.get("http://localhost:8088/api/entity")
-}) //need to know how to update store upon payload fulfillment */
-
 
 ReactDOM.render(  
   <Provider store={store}>

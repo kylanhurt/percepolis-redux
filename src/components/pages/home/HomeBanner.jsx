@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import { connect } from 'react-redux';
 import {fetchEntities} from '../../../actions/entityActions';
+import * as actions from '../../../actions';
 import { loginUser, registerUser } from '../../../actions';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
@@ -24,14 +25,6 @@ class HomeBanner extends React.Component {
 		var state = {};	
 	}
 
-	loginUser(values) {	
-		store.dispatch(loginUser({email: values.email, password: values.password}));
-	}
-
-	registerUser(e) {	
-		store.dispatch(registerUser({email: this.props.form.userRegister.values.email, password: this.props.form.userRegister.values.password}));
-	}
-
   componentWillMount() {
 
   }
@@ -52,17 +45,18 @@ class HomeBanner extends React.Component {
 	  'Invalid email address' : undefined
 
     if (!this.props.auth.authenticated) {
-
+	console.log('another render, this is:', this);
     	return(
+
 			<div className="jumbotron" style={{overflow: 'hidden'}}>
 			    <div className="col-lg-4 col-sm-12" id="home-signup-form">
-			        <form onSubmit={handleSubmit(loginUser)}>
+			        <form>
 			            <p>Please fill out the fields below to create an account:</p>			            
 		                <Field validate={[required, email]} className="form-control" name="email" label="Email" component={renderField}  id="login-email" type="email"  placeholder="user@example.com" />
 						<Field validate={[required, maxLength25]} className="form-control" name="password" label="Password" component={renderField} type="password"  id="login-password" placeholder="*******" />			                
-						{error && <strong>{error}</strong>}
-			            <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Login</button>
-			            <button type="button" className="btn btn-secondary" disabled={pristine || submitting} onClick={this.registerUser.bind(this)}>Register</button>
+						<div className="has-error form-feedback">{error}</div>
+			            <button type="submit" className="btn btn-primary" disabled={pristine || submitting} onClick={this.props.handleSubmit(loginUser)}>Login</button>
+			            <button type="button" className="btn btn-secondary" disabled={pristine || submitting} onClick={this.props.handleSubmit(registerUser)}>Register</button>
 			            <input type="hidden" name="_token" value="{{_token}}"></input>
 			        </form>
 			    </div>
@@ -102,5 +96,8 @@ HomeBanner = reduxForm({
 	form: 'userRegister'
 })(HomeBanner);
 
+function mapStateToProps(state) {  
+  return { content: state.auth.content };
+}
 
-export default HomeBanner;
+export default connect(mapStateToProps, actions)(HomeBanner);  
