@@ -7,6 +7,8 @@ import Register from './components/auth/register';
 import Login from './components/auth/login';  
 import Dashboard from './components/dashboard';  
 import RequireAuth from './components/auth/require-auth';
+//import EntityNew from './components/pages/entity/entityNew';
+import EntityNew from './components/pages/entity/entityNew';
 
 export default (  
   <Route path="/" component={App}>
@@ -14,6 +16,7 @@ export default (
     <Route path="register" component={Register} />
     <Route path="login" component={Login} />
     <Route path="dashboard" component={RequireAuth(Dashboard)} />
+    <Route path="entity/new" component={RequireAuth(EntityNew)} />
 
     <Route path="*" component={NotFoundPage} />
   </Route>
