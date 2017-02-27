@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
-import { preSubmit, skip } from '../../../actions/entityNewActions';
+import { preSubmit, skip, save } from '../../../actions/entityNewActions';
 import { Field, reduxForm } from 'redux-form';
 import { asyncValidate } from '../../../actions/homeBannerActions';
 import classNames from 'classnames';
@@ -33,12 +33,13 @@ class EntityNew extends React.Component {
   }
 
   render() { 
-  	console.log('rendering, this.props is: ', this.props)
 	const { error, asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
 	const required = value => value ? undefined : 'Required'
 	const maxLength = max => value =>
 	  value && value.length > max ? `Must be ${max} characters or less` : undefined
 	const maxLength200 = maxLength(200)
+	const maxLength2000 = maxLength(2000)
+	const maxLength4 = maxLength(4)
 
     	return(
 
@@ -55,7 +56,15 @@ class EntityNew extends React.Component {
 						)}
 
 			            {this.props.entityNew.preSubmitted && (
-			            	<p>PreSubmitted is true</p>
+			            	<div>
+				            	<h2>Additional Information:</h2>
+				            	<Field validate={[ maxLength200]} className="form-control" name="entityWebsite" label="Official Website" component={renderField} type="text" placeholder="eg http://www.acme.com" />		                
+				            	<Field validate={[ maxLength2000]} className="form-control" name="entityDescription" label="Entity Name" component={renderField} type="text" placeholder="eg This organization does..." />		                
+				            	<Field validate={[ maxLength4]} className="form-control" name="entityYearFounded" label="Year Founded" component={renderField} type="text" placeholder="eg 2010" />		                
+				            	<Field validate={[ maxLength200]} className="form-control" name="entityCountry" label="Country of Origin" component={renderField} type="select" />		                
+				            	<Field validate={[ maxLength200]} className="form-control" name="entityIndustry" label="Industry" component={renderField} type="text" placeholder="eg Hospitality" />		                
+				            	<button type="submit" className="btn btn-primary" onClick={this.props.handleSubmit(save)}>Save</button>
+			            	</div>
 			            )}
 			            <input type="hidden" name="_token" value="{{_token}}"></input>
 			        </form>
@@ -78,7 +87,6 @@ EntityNew = reduxForm({
 })(EntityNew);
 
 function mapStateToProps(state) {  
-	console.log('in mapStateToProps, state is: ', state);
   return { content: state.auth.content, email: state.auth.email };
 }
 

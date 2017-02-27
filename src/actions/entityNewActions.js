@@ -17,14 +17,17 @@ export function preSubmit({entityName, email}) {
   return new Promise((resolve, reject) => {
 	  axios.post("http://localhost:8088/api/entity", {name: entityName, email, token}) 
       .then(response => {
-		console.log('response is', response); 
+      	console.log('response is:', response);
 		if(response.data.success) {
-			store.dispatch({type: "PRESUBMIT_ENTITY_FULFILLED", payload: {entityName, email}})       ;
+			store.dispatch({type: "PRESUBMIT_ENTITY_FULFILLED", payload: {entityName, email}})   
+			resolve();
 		} else {
         	store.dispatch({type: "PRESUBMIT_ENTITY_REJECTED"});
+        	var errObj = new SubmissionError({ _error: response.data.message })
+        	reject(errObj);
 		}
       }).catch((error) => {
-        console.log('error is: ', error);     
+      	console.log('Error: ', error);
         store.dispatch({type: "PRESUBMIT_ENTITY_REJECTED"});
         if(error instanceof SubmissionError) reject(error);
 
@@ -32,6 +35,9 @@ export function preSubmit({entityName, email}) {
   })
 }
 
+export function save({}) {
+	
+}
 
 export function preSubmitOld({entityName, email}) {
 	console.log('inside entityNewActions.preSubmit');
