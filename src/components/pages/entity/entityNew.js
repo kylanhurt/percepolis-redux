@@ -39,7 +39,7 @@ class EntityNew extends React.Component {
 	const required = value => value ? undefined : 'Required'
 	const maxLength = max => value =>
 	  value && value.length > max ? `Must be ${max} characters or less` : undefined
-	const maxLength25 = maxLength(25)
+	const maxLength200 = maxLength(200)
 
     	return(
 
@@ -47,7 +47,7 @@ class EntityNew extends React.Component {
 				<h2>Entity Submission</h2>
 				<p>To start the creation and submission of a new entity, please fill out the form below:</p>
 			        <form>			            
-		                <Field validate={[required]} className="form-control" name="entityName" label="Entity Name" component={renderField} type="text"  placeholder="eg McDonald's" disabled={this.preSubmitted} />		                
+		                <Field validate={[required, maxLength200]} className="form-control" name="entityName" label="Entity Name" component={renderField} type="text"  placeholder="eg McDonald's" disabled={this.preSubmitted} />		                
 						<div className="has-error form-feedback">{error}</div>
 						{!this.props.entityNew.preSubmitted ? (
 			            	<button type="submit" className="btn btn-success" disabled={pristine || submitting} onClick={this.props.handleSubmit(preSubmit)}>Submit New Entity</button>
