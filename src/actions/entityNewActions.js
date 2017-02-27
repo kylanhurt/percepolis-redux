@@ -10,6 +10,7 @@ import cookie from 'react-cookie';
 const token = cookie.load('token');
 
 export function preSubmit({entityName, email}) {
+	console.log('in entityNewActions.preSubmit, token is: ', token);
   store.dispatch({type: "PRESUBMIT_ENTITY_PENDING"});	
   if(!email) {
   	email = store.getState().auth.email;

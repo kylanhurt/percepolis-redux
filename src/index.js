@@ -17,11 +17,11 @@ import {store} from './store';
 const token = cookie.load('token');
 const userEmail = cookie.load('email');
 
-if (token) {  
-	console.log('there IS a token')
+if (token && userEmail) {  
+  console.log('there IS a token and email')
   store.dispatch({ type: "AUTH_USER", payload: userEmail });
 } else { //remove this clause
-	console.log('there is no token')
+	console.log('there is no token nor user email')
 	store.dispatch({type: "UNAUTH_USER"}); //payload can be an OBJECT
 }
 

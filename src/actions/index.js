@@ -104,8 +104,8 @@ console.log('inside index.registerUser, beginning')
 export function logoutUser() {  
   return function (dispatch) {
     dispatch({ type: UNAUTH_USER });
+    cookie.remove('email', { path: '/' });
     cookie.remove('token', { path: '/' });
-    cookie.remove('email', email, { path: '/' });
     browserHistory.push('/');
   }
 }
