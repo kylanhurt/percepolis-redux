@@ -5,15 +5,27 @@ import { SubmissionError } from 'redux-form';
 import promise from 'promise';
 import {store} from '../store';
 import { connect } from 'react-redux';
+import cookie from 'react-cookie';
+
+const token = cookie.load('token');
 
 export function preSubmit({entityName, email}) {
   store.dispatch({type: "PRESUBMIT_ENTITY_PENDING"});	
+  if(!email) {
+  	email = store.getState().auth.email;
+  }
   return new Promise((resolve, reject) => {
-	  axios.post("http://localhost:8088/api/entity", {name: entityName, email}) 
+	  axios.post("http://localhost:8088/api/entity", {name: entityName, email, token}) 
       .then(response => {
-		console.log('response is');        
+		console.log('response is', response); 
+		if(response.data.success) {
+			store.dispatch({type: "PRESUBMIT_ENTITY_FULFILLED", payload: {entityName, email}})       ;
+		} else {
+        	store.dispatch({type: "PRESUBMIT_ENTITY_REJECTED"});
+		}
       }).catch((error) => {
         console.log('error is: ', error);     
+        store.dispatch({type: "PRESUBMIT_ENTITY_REJECTED"});
         if(error instanceof SubmissionError) reject(error);
 
       })

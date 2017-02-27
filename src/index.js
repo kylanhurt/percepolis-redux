@@ -15,14 +15,16 @@ import {store} from './store';
 
 
 const token = cookie.load('token');
+const userEmail = cookie.load('email');
 
 if (token) {  
 	console.log('there IS a token')
-  store.dispatch({ type: "AUTH_USER" });
+  store.dispatch({ type: "AUTH_USER", payload: userEmail });
 } else { //remove this clause
 	console.log('there is no token')
 	store.dispatch({type: "UNAUTH_USER"}); //payload can be an OBJECT
 }
+
 
 
 ReactDOM.render(  

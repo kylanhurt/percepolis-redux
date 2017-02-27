@@ -4,7 +4,7 @@ import API_URL from '../constants/api';
 export function fetchEntities() {
 	return function(dispatch) {
 			dispatch({type: "FETCH_ENTITIES_PENDING"});
-			axios.get(API_URL + "entity") 
+			axios.get("http://localhost:8088/api/entity") 
 			.then((response) => {
 				dispatch({type: "FETCH_ENTITIES_FULFILLED", payload: response.data})
 			})

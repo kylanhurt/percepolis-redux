@@ -7,10 +7,9 @@ const INITIAL_STATE = { error: '', message: '', content: '', authenticated: fals
 export default function (state = INITIAL_STATE, action) {  
   switch(action.type) {
     case AUTH_USER:
-      console.log('action type is AUTH_USER')
-      return { ...state, error: '', message: '', authenticated: true }; //start with destructuring, then overwrite property
+      return { ...state, error: '', message: '', authenticated: true, email: action.payload}; //start with destructuring, then overwrite property
     case UNAUTH_USER:
-      return { ...state, authenticated: false };
+      return { ...state, authenticated: false, email: null };
     case AUTH_ERROR:
       return { ...state, error: action.payload };
     case PROTECTED_TEST:

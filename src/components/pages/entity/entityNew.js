@@ -35,7 +35,6 @@ class EntityNew extends React.Component {
   render() { 
   	console.log('rendering, this.props is: ', this.props)
 	const { error, asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
-
 	const required = value => value ? undefined : 'Required'
 	const maxLength = max => value =>
 	  value && value.length > max ? `Must be ${max} characters or less` : undefined
@@ -79,7 +78,8 @@ EntityNew = reduxForm({
 })(EntityNew);
 
 function mapStateToProps(state) {  
-  return { content: state.auth.content };
+	console.log('in mapStateToProps, state is: ', state);
+  return { content: state.auth.content, email: state.auth.email };
 }
 
 export default connect(mapStateToProps, actions)(EntityNew);  

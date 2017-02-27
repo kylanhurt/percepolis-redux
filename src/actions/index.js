@@ -43,7 +43,8 @@ export function loginUser({ email, password }) {
         if(response.data.token){
           console.log('in response.token clause of loginUser')
           cookie.save('token', response.data.token, { path: '/' });
-          store.dispatch({ type: AUTH_USER });
+          cookie.save('email', email, { path: '/' });
+          store.dispatch({ type: AUTH_USER , payload: email});
           browserHistory.push('/');
           resolve(null);
         } else {
@@ -76,7 +77,8 @@ console.log('inside index.registerUser, beginning')
       if(response.data.success){
         console.log('registerUser response.data.success is true')
         cookie.save('token', response.data.token, { path: '/' });
-        store.dispatch({ type: AUTH_USER });
+        cookie.save('email', email, { path: '/' });
+        store.dispatch({ type: AUTH_USER , payload: email});
         browserHistory.push('/');
         resolve();
       } else {
@@ -103,7 +105,7 @@ export function logoutUser() {
   return function (dispatch) {
     dispatch({ type: UNAUTH_USER });
     cookie.remove('token', { path: '/' });
-
+    cookie.remove('email', email, { path: '/' });
     browserHistory.push('/');
   }
 }
