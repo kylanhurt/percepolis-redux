@@ -7,7 +7,7 @@ import { Field, reduxForm } from 'redux-form';
 import { asyncValidate } from '../../../actions/homeBannerActions';
 import classNames from 'classnames';
 import {store} from '../../../store';
-
+import countryCodes from '../../../constants/countryCodes';
 
 @connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
@@ -22,6 +22,7 @@ class EntityNew extends React.Component {
 
 	constructor( props ) {
 		super(props);
+		const countryCodes = countryCodes;
 	}
 
   componentWillMount() {
@@ -33,6 +34,7 @@ class EntityNew extends React.Component {
   }
 
   render() { 
+	console.log('country codes: ', countryCodes);
 	const { error, asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
 	const required = value => value ? undefined : 'Required'
 	const maxLength = max => value =>
@@ -60,8 +62,11 @@ class EntityNew extends React.Component {
 				            	<h2>Additional Information:</h2>
 				            	<Field validate={[ maxLength200]} className="form-control" name="entityWebsite" label="Official Website" component={renderField} type="text" placeholder="eg http://www.acme.com" />		                
 				            	<Field validate={[ maxLength2000]} className="form-control" name="entityDescription" label="Entity Name" component={renderField} type="text" placeholder="eg This organization does..." />		                
-				            	<Field validate={[ maxLength4]} className="form-control" name="entityYearFounded" label="Year Founded" component={renderField} type="text" placeholder="eg 2010" />		                
-				            	<Field validate={[ maxLength200]} className="form-control" name="entityCountry" label="Country of Origin" component={renderField} type="select" />		                
+				            	<Field validate={[ maxLength4]} className="form-control" name="entityYearFounded" label="Year Founded" component={renderField} type="text" placeholder="eg 2010" />		                	                
+				            	<Field component={renderSelect} selection={countryCodes} className="form-control" name="entityCountry" label="Country of Origin" placeholder="" />
+
+
+
 				            	<Field validate={[ maxLength200]} className="form-control" name="entityIndustry" label="Industry" component={renderField} type="text" placeholder="eg Hospitality" />		                
 				            	<button type="submit" className="btn btn-primary" onClick={this.props.handleSubmit(save)}>Save</button>
 			            	</div>
@@ -78,6 +83,22 @@ const renderField = ({ input, type, label,  placeholder, className, meta: { touc
     <label htmlFor={label}>{label}:</label> {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span className="text-warning">{warning}</span>))}
     <div>
       <input type={type} placeholder={placeholder} className={className} {...input} />
+    </div>
+  </div>
+)
+
+const renderSelect = ({ input, type, label, selection,  placeholder, className, meta: { touched, error, warning } }) => (
+  <div className={classNames('form-group', {'has-error': touched && error}, {'has-warning': touched && warning})}>
+    <label htmlFor={label}>{label}:</label> {touched && ((error && <span className="text-danger">{error}</span>) || (warning && <span className="text-warning">{warning}</span>))}
+    <div>
+    	<select className={className} defaultValue="">
+    		<option value=""></option>
+    		{
+    			selection.map(function(country) {
+    				return <option key={country.Code} value={country.Code}>{country.Name}</option>;
+    			})
+    		}
+		</select>
     </div>
   </div>
 )
