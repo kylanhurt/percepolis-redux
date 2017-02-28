@@ -34,7 +34,6 @@ class EntityNew extends React.Component {
   }
 
   render() { 
-	console.log('country codes: ', countryCodes);
 	const { error, asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
 	const required = value => value ? undefined : 'Required'
 	const maxLength = max => value =>

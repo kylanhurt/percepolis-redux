@@ -32,6 +32,7 @@ class HomeBanner extends React.Component {
   }
 
   render() { 
+  	console.log('this.props is:', this.props);
 	const { error, asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
 
 	const required = value => value ? undefined : 'Required'
@@ -95,6 +96,17 @@ HomeBanner = reduxForm({
 
 function mapStateToProps(state) {  
   return { content: state.auth.content };
+}
+
+HomeBanner.propTypes = {
+	loginUser: React.PropTypes.func,
+	logoutUser: React.PropTypes.func,
+	registerUser: React.PropTypes.func,
+	submitFailed: React.PropTypes.string,
+	submit: React.PropTypes.func,
+	submitting: React.PropTypes.bool,
+	auth: React.PropTypes.object,
+	handleSubmit: React.PropTypes.func
 }
 
 export default connect(mapStateToProps, actions)(HomeBanner);  
