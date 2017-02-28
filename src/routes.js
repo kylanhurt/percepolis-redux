@@ -7,12 +7,14 @@ import Dashboard from './components/dashboard';
 import RequireAuth from './components/auth/require-auth';
 //import EntityNew from './components/pages/entity/entityNew';
 import EntityNew from './components/pages/entity/entityNew';
+import EntityView from './components/pages/entity/entityView';
 
 export default (  
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="dashboard" component={RequireAuth(Dashboard)} />
     <Route path="entity/new" component={RequireAuth(EntityNew)} />
+    <Route path="entity/view/:entityName" component={EntityView} />
 
     <Route path="*" component={NotFoundPage} />
   </Route>
