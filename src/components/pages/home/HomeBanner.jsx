@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {Link} from 'react-router';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
@@ -99,14 +99,14 @@ function mapStateToProps(state) {
 }
 
 HomeBanner.propTypes = {
-	loginUser: React.PropTypes.func,
-	logoutUser: React.PropTypes.func,
-	registerUser: React.PropTypes.func,
-	submitFailed: React.PropTypes.string,
-	submit: React.PropTypes.func,
-	submitting: React.PropTypes.bool,
-	auth: React.PropTypes.object,
-	handleSubmit: React.PropTypes.func
+	loginUser: PropTypes.func,
+	logoutUser: PropTypes.func,
+	registerUser: PropTypes.func,
+	submitFailed: PropTypes.bool,
+	submit: PropTypes.func,
+	submitting: PropTypes.bool,
+	auth: PropTypes.object,
+	handleSubmit: PropTypes.func
 }
 
 export default connect(mapStateToProps, actions)(HomeBanner);  
