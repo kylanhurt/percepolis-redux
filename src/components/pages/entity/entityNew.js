@@ -110,4 +110,8 @@ function mapStateToProps(state) {
   return { content: state.auth.content, email: state.auth.email };
 }
 
+EntityNew.propTypes = {
+	
+}
+
 export default connect(mapStateToProps, actions)(EntityNew);  
