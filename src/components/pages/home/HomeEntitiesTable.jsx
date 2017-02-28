@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {fetchEntities} from '../../../actions/entityActions';
 import moment from 'moment';
-
+import {Link} from 'react-router';
 
 @connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
@@ -20,7 +20,7 @@ export default class EntityTable extends React.Component {
   	const entities = this.props.entity; 	
   	const mappedEntities = entities.map(entity =>           	
   				<tr >
-	                <td className="home-index-table-body-title"><a>{entity.name}</a></td>
+	                <td className="home-index-table-body-title"><Link to={"/entity/view/" + encodeURI(entity.name)}>{entity.name}</Link></td>
 	                <td className="home-index-table-body-website"><a href="http://">{entity.website}</a></td>                        
 	                <td className="home-index-table-body-location">{entity.location}</td>
 	                <td className="home-index-table-body-year">{entity.yearFounded}</td>
