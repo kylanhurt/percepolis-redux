@@ -13,6 +13,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, requesting: false, preSubmitted: true};
     case "PRESUBMIT_ENTITY_REJECTED":
       return { ...state, requesting: false, preSubmitted: false};
+  	case "LEFT_ENTITY_NEW_FORM":
+  	  return { ...state, requesting: false, preSubmitted: false};
   }
 
   return state;

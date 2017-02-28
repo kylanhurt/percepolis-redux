@@ -17,6 +17,8 @@ export default function (state = INITIAL_STATE, action) {
 
     case "FETCH_ENTITIES_REJECTED":
       return {...state, requesting: false, received: false, error: action.payload.message };
+    case "LEFT_HOMEPAGE":
+      return {...state, requesting: false, received: false, error: false, homeTableEntities: []};
   }
 
   return state;

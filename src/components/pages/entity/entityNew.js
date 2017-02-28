@@ -33,6 +33,10 @@ class EntityNew extends React.Component {
 
   }
 
+  componentWillUnmount() {
+  	store.dispatch({ type: "LEFT_ENTITY_NEW_FORM" });
+  }
+
   render() { 
 	const { error, asyncValidating, handleSubmit, pristine, reset, submitting } = this.props;  	
 	const required = value => value ? undefined : 'Required'
@@ -111,7 +115,7 @@ function mapStateToProps(state) {
 }
 
 EntityNew.propTypes = {
-	
+
 }
 
 export default connect(mapStateToProps, actions)(EntityNew);  

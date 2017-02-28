@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {fetchEntities} from '../../../actions/entityActions';
 import moment from 'moment';
 import {Link} from 'react-router';
+import {store} from '../../../store';
 
 @connect((store) => { //injects props into the layout, first param gives store to props, 2nd param
 	return {
@@ -13,8 +14,12 @@ import {Link} from 'react-router';
 export default class EntityTable extends React.Component {
 
 	componentDidMount() {
-		this.props.dispatch(fetchEntities());
+		store.dispatch(fetchEntities());
 	}
+
+  componentWillUnmount() {
+  	store.dispatch({ type: "LEFT_HOMEPAGE" });
+  }	
 
   render() { 
   	const entities = this.props.entity; 	
